@@ -7,19 +7,20 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app, server
-from pages import index, predictions, insights, process
+from pages import index, predictions, insights, process, page1
 
 # Navbar docs: https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
 navbar = dbc.NavbarSimple(
-    brand='YOUR APP NAME',
+    brand='Kickstarter Buildweek 1020',
     brand_href='/', 
     children=[
         dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
         dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
+        dbc.NavItem(dcc.Link('Methodology', href='/methodology', className='nav-link')),
+        dbc.NavItem(dcc.Link('Test', href='/test', className='nav-link')) 
     ],
     sticky='top',
-    color='light', 
+    color='#87C543', 
     light=True, 
     dark=False
 )
@@ -35,11 +36,11 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Your Name', className='mr-2'), 
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:<you>@<provider>.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/<you>'), 
+                    html.Span('Rebecca Duke Wiesenberg, Robert Giuffre, Evan Grinalds, Shannon Li', className='mr-2'), 
+                    #html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:<you>@<provider>.com'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/trackteam-kickstarter'), 
+                    #html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
+                    #html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/<you>'), 
                 ], 
                 className='lead'
             )
@@ -68,9 +69,11 @@ def display_page(pathname):
         return index.layout
     elif pathname == '/predictions':
         return predictions.layout
+    elif pathname == '/test':
+        return page1.layout
     elif pathname == '/insights':
         return insights.layout
-    elif pathname == '/process':
+    elif pathname == '/methodology':
         return process.layout
     else:
         return dcc.Markdown('## Page not found')
