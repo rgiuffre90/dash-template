@@ -6,16 +6,16 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-dash = "==1.16.3"
+dash = "*"
 dash-bootstrap-components = "*"
 gunicorn = "*"
 plotly = "*"
 pandas = "*"
 joblib = "*"
-scikit-learn = "==0.22.2.post1"
-xgboost = "==0.90"
+scikit-learn = "*"
 category-encoders = "*"
 sklearn = "*"
+pipfile = "*"
 
 [requires]
-python_version = "3"
+python_version = "*"
