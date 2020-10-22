@@ -16,7 +16,7 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Kickstarter Header
+            ## Time to Kickstart your Dream?
 
             Our model predicts what makes a successful Kickstarter campaign.
 

@@ -17,6 +17,8 @@ column1 = dbc.Col(
         
             ## Insights
 
+            Test text
+
 
             """
         ),

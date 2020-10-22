@@ -23,4 +23,4 @@ column1 = dbc.Col(
 
 column2 = dbc.Col([])
 
-layout = html.Img(src='assets/funded-with-kickstarter_0.png', className='img-fluid'), dbc.Row([column1, column2])
+layout = dbc.Row([column1, column2])

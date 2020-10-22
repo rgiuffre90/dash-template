@@ -17,7 +17,6 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
         dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
         dbc.NavItem(dcc.Link('Methodology', href='/methodology', className='nav-link')),
-        dbc.NavItem(dcc.Link('Test', href='/test', className='nav-link')) 
     ],
     sticky='top',
     color='#87C543', 
@@ -36,7 +35,7 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Rebecca Duke Wiesenberg, Robert Giuffre, Evan Grinalds, Shannon Li', className='mr-2'), 
+                    html.Span('Rebecca Duke Wiesenberg, Robert Giuffre, Evan Grinalds', className='mr-2'), 
                     #html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:<you>@<provider>.com'), 
                     html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/trackteam-kickstarter'), 
                     #html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 

@@ -12,56 +12,11 @@ from app import app
 # 2 column layout. 1st column width = 4/12
 # https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
 
-pipeline = load('assets/pipeline.joblib')
+pipeline = load('assets/regression.joblib')
 
 column1 = dbc.Col(
     [
         dcc.Markdown('## Predictions', className='mb-5'), 
-        dcc.Markdown('#### Goal'), 
-        dcc.Slider(
-            id='goal', 
-            min=0, 
-            max=20000, 
-            step=100, 
-            value=2000, 
-            marks={n: str(n) for n in range(0,20000,5000)}, 
-            className='mb-5'
-        ), 
- 
-        dcc.Markdown('#### Backers'), 
-        dcc.Slider(
-            id='backers', 
-            min=1, 
-            max=20000, 
-            step=100, 
-            value=2000, 
-            marks={n: str(n) for n in range(1,20000,2000)}, 
-            className='mb-5' 
-        ),
-
-        dcc.Markdown('#### Currency'), 
-        dcc.Dropdown(
-            id='currency', 
-            options = [
-                {'label': 'USD', 'value': 'USD'}, 
-                {'label': 'GBP', 'value': 'GBP'}, 
-                {'label': 'EUR', 'value': 'EUR'}, 
-                {'label': 'CAD', 'value': 'CAD'}, 
-                {'label': 'AUD', 'value': 'AUD'}, 
-                {'label': 'SEK', 'value': 'SEK'}, 
-                {'label': 'MXN', 'value': 'MXN'}, 
-                {'label': 'NZD', 'value': 'NZD'}, 
-                {'label': 'DKK', 'value': 'DKK'}, 
-                {'label': 'CHF', 'value': 'CHF'},
-                {'label': 'NOK', 'value': 'NOK'}, 
-                {'label': 'HKD', 'value': 'HKD'}, 
-                {'label': 'SGD', 'value': 'SGD'}, 
-                {'label': 'JPY', 'value': 'JPY'}  
-            ], 
-            value = 'USD', 
-            className='mb-5' 
-        ), 
-        
         dcc.Markdown('#### Main Category'), 
         dcc.Dropdown(
             id='main_category', 
@@ -70,7 +25,7 @@ column1 = dbc.Col(
                 {'label': 'Film & Video', 'value': 2}, 
                 {'label': 'Music', 'value': 3}, 
                 {'label': 'Food', 'value': 4}, 
-                {'label': 'Desgin', 'value': 5}, 
+                {'label': 'Design', 'value': 5}, 
                 {'label': 'Crafts', 'value': 6}, 
                 {'label': 'Games', 'value': 7}, 
                 {'label': 'Comics', 'value': 8}, 
@@ -86,6 +41,28 @@ column1 = dbc.Col(
             className='mb-5' 
         ), 
 
+        dcc.Markdown('#### Goal (Total Funding)'), 
+        dcc.Slider(
+            id='goal', 
+            min=0, 
+            max=100000, 
+            step=100, 
+            value=0, 
+            marks={n: str(n) for n in range(0,100000,20000)}, 
+            className='mb-5'
+        ), 
+ 
+        # dcc.Markdown('#### Backers'), 
+        # dcc.Slider(
+        #     id='backers', 
+        #     min=0, 
+        #     max=20000, 
+        #     step=100, 
+        #     value=2000, 
+        #     marks={n: str(n) for n in range(0,20000,4000)}, 
+        #     className='mb-5' 
+        # ),
+
         dcc.Markdown('#### Length of Campaign (Days)'), 
         dcc.Slider(
             id='length_of_campaign', 
@@ -96,7 +73,7 @@ column1 = dbc.Col(
             marks={n: str(n) for n in range(0,100,10)}, 
             className='mb-5' 
         ), 
-        dcc.Markdown('#### Name Sentiment (Postive or Negative)'), 
+        dcc.Markdown('#### Campaign Name Sentiment (Postive or Negative)'), 
         dcc.Slider(
             id='sentiments', 
             min=0, 
@@ -112,39 +89,34 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        html.H2('Kickstarter Success', className='mb-5'), 
-        html.Div(id='state', className='lead')
+        html.H2('Kickstarter Campaign Results', className='mb-5'), 
+        html.Div(id='outcome', className='lead')
     ]
 )
 
 @app.callback(
-    Output('state', 'children'),
-    [Input('backers', 'value'), Input('goal', 'value'),
-    Input('currency', 'value'), Input('main_category', 'value'),
-    Input('length_of_campaign', 'value'), Input('sentiments', 'value')],
+    Output('outcome', 'children'),
+    [Input('goal', 'value'),
+     Input('main_category', 'value'),Input('length_of_campaign', 'value'), 
+     Input('sentiments', 'value')],
 )
-def predict( goal, backers,  currency, main_category, length_of_campaign, sentiments):
+def predict(main_category, goal, length_of_campaign, sentiments):
     df = pd.DataFrame(
-        columns=['goal', 'backers', 'currency',
-                'main_category', 'length_of_campaign',
+        columns=['main_category', 'goal',
+                 'length_of_campaign',
                 'sentiments'], 
-        data=[[goal, backers, currency, main_category, length_of_campaign, sentiments]]
+        data=[[main_category, goal, length_of_campaign, sentiments]]
     )
     y_pred = pipeline.predict(df)[0]
     
     def result(y_pred):
         if y_pred == '1':
-            return 'Successful Campaign'
+            return html.Img(src='assets/success.png', className='img-fluid')
         else:
-            return 'Failed Campaign'
+            return html.Img(src='assets/failure.jpeg', className='img-fluid')
 
     return result(y_pred)
 
 layout = dbc.Row([column1, column2])
 
-#backers
-#goal
-#legnth_of_campaign
-#main_category
-#sentiments
-#currency
+
