@@ -16,16 +16,18 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Time to Kickstart your Dream?
+            ## Time to kickstart your dream?
 
-            Our model predicts what makes a successful Kickstarter campaign.
+            Out of the half-million launched campaigns, a third are successful, [according to Kickstarter](https://www.kickstarter.com/help/stats). Our app, Kickstart Or Stop, analyzes hundreds of thousands of campaigns from 2018 to answer the question: What makes a successful campaign? 
+            
 
-            ✅ Tk
+            Using the interactive quiz, you can find out whether your hypothetical kickstarter campaign would be successful -- or how your current campaign stacks up! However, we advise to use Kickstart Or Stop in tandem with other consulting resources before making a decision about launching a campaign. 
 
-            ❌ Tk
+            (Graphic courtesy of [amateurphotographer.co.uk](https://www.amateurphotographer.co.uk/latest/articles/the-kickstarter-photo-projects-that-never-delivered-45430))
+
             """
         ),
-        dcc.Link(dbc.Button('Try it out!', color='success'), href='/predictions')
+        dcc.Link(dbc.Button("Let's get started!", color='success'), href='/predictions')
     ],
     md=4,
 )

@@ -7,16 +7,16 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app, server
-from pages import index, predictions, insights, process, page1
+from pages import index, predictions, process
 
 # Navbar docs: https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
 navbar = dbc.NavbarSimple(
-    brand='Kickstarter Buildweek 1020',
+    brand='Kickstart or Stop',
     brand_href='/', 
     children=[
-        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Methodology', href='/methodology', className='nav-link')),
+        dbc.NavItem(dcc.Link('Home', href='/', className='nav-link')),
+        dbc.NavItem(dcc.Link('Predictions', href='/predict', className='nav-link')), 
+        dbc.NavItem(dcc.Link('Insights and Methodology', href='/methodology-insights', className='nav-link'))
     ],
     sticky='top',
     color='#87C543', 
@@ -66,14 +66,10 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/':
         return index.layout
-    elif pathname == '/predictions':
-        return predictions.layout
-    elif pathname == '/test':
-        return page1.layout
-    elif pathname == '/insights':
-        return insights.layout
-    elif pathname == '/methodology':
+    elif pathname == '/methodology-insights':
         return process.layout
+    elif pathname == '/predict':
+        return predictions.layout
     else:
         return dcc.Markdown('## Page not found')
 
