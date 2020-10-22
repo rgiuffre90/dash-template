@@ -2,6 +2,8 @@
 
 [Instructions](https://lambdaschool.github.io/ds/unit2/dash-template/)
 
+[Link to methodology](https://kickstart-or-stop.herokuapp.com/methodology-insights)
+
 
 [[documentation]]
 [dash = "==1.16.3"]
